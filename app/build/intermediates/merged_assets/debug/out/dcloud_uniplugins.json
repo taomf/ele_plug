@@ -1,0 +1,52 @@
+{
+  "nativePlugins": [
+    {
+      "plugins": [
+        {
+          "type": "module",
+          "name": "TestModule",
+          "class": "io.dcloud.uniplugin.TestModule"
+        }
+      ]
+    },
+    {
+      "plugins": [
+        {
+          "type": "component",
+          "name": "myText",
+          "class": "io.dcloud.uniplugin.TestText"
+        }
+      ]
+    },
+    {
+      "hooksClass": "",
+      "plugins": [
+        {
+          "type": "module",
+          "name": "DCloud-RichAlert",
+          "class": "uni.dcloud.io.uniplugin_richalert.RichAlertModule"
+        }
+      ]
+    },
+    {
+      "hooksClass" : "com.ygzy.eles.camera.ElesAppProxy",
+      "plugins": [
+        {
+          "type": "component",
+          "name": "camera-preview",
+          "class": "com.ygzy.eles.camera.CameraPreView"
+        },
+        {
+          "type": "component",
+          "name": "weight-preview",
+          "class": "com.sx.sxhardware.WeightPreView"
+        },
+        {
+          "type": "module",
+          "name": "print-module",
+          "class": "com.ygzy.eles.print.PrintModule"
+        }
+      ]
+    }
+  ]
+}
