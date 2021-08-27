@@ -13,6 +13,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,7 +69,7 @@ public class CameraPreView extends UniComponent<FacadeView> {
         Map<String, Object> params = new HashMap<>();
         Map<String, Object> number = new HashMap<>();
         number.put("path", path);
-        number.put("weight", WeightPreView.wei);
+        number.put("weight", WeightPreView.weighted);
         //目前uni限制 参数需要放入到"detail"中 否则会被清理
         params.put("detail", number);
         fireEvent("onTel", params);

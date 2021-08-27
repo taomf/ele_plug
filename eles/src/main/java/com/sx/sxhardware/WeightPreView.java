@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.wzx.WeightAPI.WeightDLL;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,9 @@ public class WeightPreView extends UniComponent<TextView> {
     public static String weightData; // 临时数据
     public static int weightState;
 
-    private String tareWei = "0" ; // 皮重
+    public static String tareWei = "0" ; // 皮重
+
+    public static String weighted = "0";
 
     private WeightDLL weightdll;
 
@@ -84,7 +87,12 @@ public class WeightPreView extends UniComponent<TextView> {
                     weight.post(new Runnable() {
                         @Override
                         public void run() {
-                            weight.setText("重量：" +  (Integer.parseInt(finalWeightValue) - Integer.parseInt(tareWei)) + " kg");
+
+
+                            BigDecimal b1 = new BigDecimal(finalWeightValue);
+                            BigDecimal b2 = new BigDecimal(tareWei);
+                            weighted = (b1.subtract(b2).doubleValue()) + "";
+                            weight.setText("重量：" +  weighted + " kg");
                         }
                     });
                     break;
@@ -125,7 +133,7 @@ public class WeightPreView extends UniComponent<TextView> {
 
         Map<String, Object> params = new HashMap<>();
         Map<String, Object> number = new HashMap<>();
-        number.put("weight", wei);
+        number.put("laterweight", wei);
         //目前uni限制 参数需要放入到"detail"中 否则会被清理
         params.put("detail", number);
         fireEvent("onTel", params);

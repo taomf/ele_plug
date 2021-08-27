@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 2.1.75
 # min_api: 22
-# pg_map_id: 9995fe8
+# pg_map_id: 1c13d66
 # common_typos_disable
 XI.CA.XI.K0 -> XI.CA.XI.K0:
     1:4:boolean K0() -> K0
@@ -30692,28 +30692,29 @@ com.nostra13.dcloudimageloader.utils.StorageUtils -> com.nostra13.dcloudimageloa
     1:6:java.io.File getOwnCacheDirectory(android.content.Context,java.lang.String) -> getOwnCacheDirectory
     1:1:boolean hasExternalStoragePermission(android.content.Context) -> hasExternalStoragePermission
 com.sx.sxhardware.WeightPreView -> com.sx.sxhardware.WeightPreView:
-    39:66:void <init>(io.dcloud.feature.uniapp.UniSDKInstance,io.dcloud.feature.uniapp.ui.component.AbsVContainer,io.dcloud.feature.uniapp.ui.action.AbsComponentData) -> <init>
-    29:29:com.wzx.WeightAPI.WeightDLL access$100(com.sx.sxhardware.WeightPreView) -> access$100
-    29:29:android.os.Handler access$200(com.sx.sxhardware.WeightPreView) -> access$200
-    29:29:android.view.View initComponentHostView(android.content.Context) -> initComponentHostView
-    47:63:android.widget.TextView initComponentHostView(android.content.Context) -> initComponentHostView
-    120:127:void laterNetWeight() -> laterNetWeight
-    113:114:void netWeight() -> netWeight
-    146:148:void onActivityDestroy() -> onActivityDestroy
-    95:108:void returnZero() -> returnZero
+    38:40:void <clinit>() -> <clinit>
+    45:72:void <init>(io.dcloud.feature.uniapp.UniSDKInstance,io.dcloud.feature.uniapp.ui.component.AbsVContainer,io.dcloud.feature.uniapp.ui.action.AbsComponentData) -> <init>
+    31:31:com.wzx.WeightAPI.WeightDLL access$100(com.sx.sxhardware.WeightPreView) -> access$100
+    31:31:android.os.Handler access$200(com.sx.sxhardware.WeightPreView) -> access$200
+    31:31:android.view.View initComponentHostView(android.content.Context) -> initComponentHostView
+    53:69:android.widget.TextView initComponentHostView(android.content.Context) -> initComponentHostView
+    134:141:void laterNetWeight() -> laterNetWeight
+    123:128:void netWeight() -> netWeight
+    160:162:void onActivityDestroy() -> onActivityDestroy
+    106:119:void returnZero() -> returnZero
 com.sx.sxhardware.WeightPreView$1 -> com.sx.sxhardware.WeightPreView$1:
-    66:66:void <init>(com.sx.sxhardware.WeightPreView) -> <init>
-    69:89:void handleMessage(android.os.Message) -> handleMessage
+    72:72:void <init>(com.sx.sxhardware.WeightPreView) -> <init>
+    75:100:void handleMessage(android.os.Message) -> handleMessage
 com.sx.sxhardware.WeightPreView$1$1 -> com.sx.sxhardware.WeightPreView$1$1:
-    81:81:void <init>(com.sx.sxhardware.WeightPreView$1,java.lang.String) -> <init>
-    84:85:void run() -> run
+    87:87:void <init>(com.sx.sxhardware.WeightPreView$1,java.lang.String) -> <init>
+    92:96:void run() -> run
 com.sx.sxhardware.WeightPreView$2 -> com.sx.sxhardware.WeightPreView$2:
-    95:95:void <init>(com.sx.sxhardware.WeightPreView) -> <init>
-    100:105:void run() -> run
+    106:106:void <init>(com.sx.sxhardware.WeightPreView) -> <init>
+    111:116:void run() -> run
 com.sx.sxhardware.WeightPreView$ReadThreadWeight -> com.sx.sxhardware.WeightPreView$ReadThreadWeight:
-    129:129:void <init>(com.sx.sxhardware.WeightPreView) -> <init>
-    129:129:void <init>(com.sx.sxhardware.WeightPreView,com.sx.sxhardware.WeightPreView$1) -> <init>
-    132:141:void run() -> run
+    143:143:void <init>(com.sx.sxhardware.WeightPreView) -> <init>
+    143:143:void <init>(com.sx.sxhardware.WeightPreView,com.sx.sxhardware.WeightPreView$1) -> <init>
+    146:155:void run() -> run
 com.taobao.weex.BuildConfig -> com.taobao.weex.BuildConfig:
     6:6:void <init>() -> <init>
 com.taobao.weex.InitConfig -> com.taobao.weex.InitConfig:
@@ -36524,13 +36525,13 @@ com.ygzy.eles.BuildConfig -> com.ygzy.eles.BuildConfig:
     7:7:void <clinit>() -> <clinit>
     6:6:void <init>() -> <init>
 com.ygzy.eles.camera.CameraPreView -> com.ygzy.eles.camera.CameraPreView:
-    36:37:void <init>(io.dcloud.feature.uniapp.UniSDKInstance,io.dcloud.feature.uniapp.ui.component.AbsVContainer,io.dcloud.feature.uniapp.ui.action.AbsComponentData) -> <init>
-    31:31:android.view.View initComponentHostView(android.content.Context) -> initComponentHostView
-    43:48:com.ygzy.eles.camera.view.FacadeView initComponentHostView(android.content.Context) -> initComponentHostView
-    79:83:void onActivityDestroy() -> onActivityDestroy
-    67:75:void onSaveFilePath(java.lang.String) -> onSaveFilePath
-    60:62:void stopCamera(org.json.JSONObject,io.dcloud.feature.uniapp.bridge.UniJSCallback) -> stopCamera
-    53:56:void takePhotos(org.json.JSONObject,io.dcloud.feature.uniapp.bridge.UniJSCallback) -> takePhotos
+    37:38:void <init>(io.dcloud.feature.uniapp.UniSDKInstance,io.dcloud.feature.uniapp.ui.component.AbsVContainer,io.dcloud.feature.uniapp.ui.action.AbsComponentData) -> <init>
+    32:32:android.view.View initComponentHostView(android.content.Context) -> initComponentHostView
+    44:49:com.ygzy.eles.camera.view.FacadeView initComponentHostView(android.content.Context) -> initComponentHostView
+    80:84:void onActivityDestroy() -> onActivityDestroy
+    68:76:void onSaveFilePath(java.lang.String) -> onSaveFilePath
+    61:63:void stopCamera(org.json.JSONObject,io.dcloud.feature.uniapp.bridge.UniJSCallback) -> stopCamera
+    54:57:void takePhotos(org.json.JSONObject,io.dcloud.feature.uniapp.bridge.UniJSCallback) -> takePhotos
 com.ygzy.eles.camera.ElesAppProxy -> com.ygzy.eles.camera.ElesAppProxy:
     16:19:void <clinit>() -> <clinit>
     14:14:void <init>() -> <init>
