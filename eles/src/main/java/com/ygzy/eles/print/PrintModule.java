@@ -109,12 +109,12 @@ public class PrintModule extends UniModule {
         JSONArray foodList = json.getJSONArray("foodList");
 
         String tagency = PrintBarText("时间：" + json.getString("informDate"), 65, 25) + "\n";
-        String tdate = PrintBarText("验收人：" + json.getString("acceptor"), 65, 25) + "\n";
-        String tbillNo = PrintBarText("采购人：" + json.getString("purchaser"), 65, 25) + "\n";
-        String tcdName = PrintBarText("保管人：" + json.getString("custodian"), 65, 25) + "\n";
-        String xuxian = PrintBarText("----------------------", 65, 25) + "\n";
-        String foodInfo = PrintBarText("食材    出库数量    单价    合计", 65, 25) + "\n";
-        String xuxian2 = PrintBarText("---------------------", 65, 25) + "\n";
+        String tdate = PrintBarText("验收人：" + json.getString("acceptor"), 65, 60) + "\n";
+        String tbillNo = PrintBarText("采购人：" + json.getString("purchaser"), 65, 95) + "\n";
+        String tcdName = PrintBarText("保管人：" + json.getString("custodian"), 65, 130) + "\n";
+        String xuxian = PrintBarText("----------------------", 65, 165) + "\n";
+        String foodInfo = PrintBarText("食材    出库数量    单价    合计", 65, 200) + "\n";
+        String xuxian2 = PrintBarText("---------------------", 65, 235) + "\n";
 
 
         StringBuilder sb =new StringBuilder ();
@@ -127,10 +127,10 @@ public class PrintModule extends UniModule {
             sb.append(food.getString("total") + "\n");
         }
 
-        String foodData = PrintBarText(sb.toString(), 65, 25) + "\n";
-        String xuxian3 = PrintBarText("-------------------", 65, 25) + "\n";
-        String remarks = PrintBarText("备注：" + json.getString("remarks"), 65, 25) + "\n\n\n";
-        String xuxian4 = PrintBarText("-------------------", 65, 25) + "\n";
+        String foodData = PrintBarText(sb.toString(), 65, 270) + "\n";
+        String xuxian3 = PrintBarText("-------------------", 65, 305) + "\n";
+        String remarks = PrintBarText("备注：" + json.getString("remarks"), 65, 340) + "\n\n\n";
+        String xuxian4 = PrintBarText("-------------------", 65, 375) + "\n";
 
 
 //        String tTerOId = PrintBarText("终端编号：" + terOId, 65, 165) + "\n";

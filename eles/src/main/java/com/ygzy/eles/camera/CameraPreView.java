@@ -63,7 +63,7 @@ public class CameraPreView extends UniComponent<FacadeView> {
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSaveFilePath(String path) {
         Log.i("szm--", path);
         Map<String, Object> params = new HashMap<>();
