@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.security.InvalidParameterException;
 
 import android_serialport_api.SerialPort;
@@ -31,16 +32,71 @@ public class PrintModule extends UniModule {
     public static OutputStream mOutputStreamPrint;
     public InputStream mInputStreamPrint;
 
+    PrinterCMD pcmd = new PrinterCMD();
+    public String command = "";
+
+    public int y = 25;
+
 
     @UniJSMethod(uiThread = false)
     public void printInsert(JSONObject json, UniJSCallback callback){
         initLabelPrint();
         try {
-            String print = print22Code(json);
+//            String print = print22Code(json);
+//            Log.i("taomf2",print);
+
             String printInfo = printInformInfo(json);
             Log.i("taomf",printInfo);
-            Log.i("taomf2",print);
-            mOutputStreamPrint.write(print.getBytes("GB2312"));
+
+            printInsertOrgName(json ,"入库单");
+
+            command = pcmd.CMD_TextAlign(0);
+            byte[]  outbytes = command.getBytes(Charset.forName("ASCII"));
+            mOutputStreamPrint.write(outbytes);
+
+            mOutputStreamPrint.write(printInfo.getBytes("GB2312"));
+        } catch (Exception e) {
+        }
+
+    }
+
+    public void printInsertOrgName(JSONObject json,String type) {
+
+        try {
+
+            command = pcmd.CMD_TextAlign(1);
+            byte[]  outbytes = command.getBytes(Charset.forName("ASCII"));
+            mOutputStreamPrint.write(outbytes);
+
+            command = pcmd.CMD_FontSize(3);
+            mOutputStreamPrint.write(command.getBytes(Charset.forName("ASCII")));
+
+            mOutputStreamPrint.write("\n".getBytes("GB2312"));
+            mOutputStreamPrint.write((json.getString("orgName") + type).getBytes("GB2312"));
+
+            command = pcmd.CMD_FontSize(0);
+            mOutputStreamPrint.write(command.getBytes(Charset.forName("ASCII")));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @UniJSMethod(uiThread = false)
+    public void printOut(JSONObject json, UniJSCallback callback){
+        initLabelPrint();
+        try {
+            String printOut = printOutInfo(json);
+
+            printInsertOrgName(json,"出库单");
+
+            command = pcmd.CMD_TextAlign(0);
+            byte[]  outbytes = command.getBytes(Charset.forName("ASCII"));
+            mOutputStreamPrint.write(outbytes);
+
+            Log.i("taomf",printOut);
+            mOutputStreamPrint.write(printOut.getBytes("GB2312"));
         } catch (Exception e) {
         }
 
@@ -62,18 +118,80 @@ public class PrintModule extends UniModule {
         String acceptor = jsonObject.getString("acceptor");
         String purchaser = jsonObject.getString("purchaser");
         String custodian = jsonObject.getString("custodian");
+        String supplierName = jsonObject.getString("supplierName");
 
-        sb.append("时间:" + informDate);
-        sb.append ("\n");
+        sb.append("\n\n");
+        sb.append("时间:" + informDate + "\n");
 
-        sb.append("验收人:" + acceptor);
-        sb.append ("\n");
+        sb.append("验收人:" + acceptor + "\n");
 
-        sb.append("采购人:" + purchaser);
-        sb.append ("\n");
+        sb.append("采购人:" + purchaser + "\n");
 
-        sb.append("保管人:" + custodian);
-        sb.append ("\n");
+        sb.append("保管人:" + custodian + "\n");
+
+        sb.append("供应商:" + supplierName + "\n");
+
+        sb.append("--------------------------------" + "\n");
+        sb.append("食材    入库数量    单价    合计" + "\n");
+        sb.append("--------------------------------" + "\n");
+
+        JSONArray foodList = jsonObject.getJSONArray("foodList");
+
+        for (int i = 0; i < foodList.size(); i++) {
+            JSONObject food = (JSONObject) foodList.get(i);
+            sb.append(food.getString("foodName") + "  " + food.getString("stock") + food.getString("unit") + "  " + food.getString("unitPrice") + "  " + food.getString("total") + "\n");
+        }
+
+        sb.append("--------------------------------" + "\n");
+        sb.append("备注：" + jsonObject.getString("remarks") + "\n");
+        sb.append("--------------------------------" + "\n\n\n\n\n\n\n\n");
+
+
+        return sb.toString();
+    }
+
+    /**
+     * 验收人：acceptor
+     * 采购人：purchaser
+     * 保管人：custodian
+     * 备注：remarks
+     * 时间：informDate
+     * foodList【】 食材：foodName   入库数量：stock 单位：unit  单价：unitPrice   合计：total
+     */
+    public static  String printOutInfo(JSONObject jsonObject){
+        StringBuilder sb=new StringBuilder ();
+
+        String deliveryTime = jsonObject.getString("deliveryTime");
+        String deliveryUser = jsonObject.getString("deliveryUser");
+        String receiver = jsonObject.getString("receiver");
+        String reason = jsonObject.getString("reason");
+
+        sb.append("\n\n");
+        sb.append("时间:" + deliveryTime + "\n");
+
+        sb.append("出库人:" + deliveryUser + "\n");
+
+        sb.append("领料人:" + receiver + "\n");
+
+        sb.append("出库用途:" + reason + "\n");
+
+
+        sb.append("--------------------------------" + "\n");
+        sb.append("食材    出库数量    单价    合计" + "\n");
+        sb.append("--------------------------------" + "\n");
+
+        JSONArray foodList = jsonObject.getJSONArray("foodList");
+
+        for (int i = 0; i < foodList.size(); i++) {
+            JSONObject food = (JSONObject) foodList.get(i);
+            sb.append(food.getString("foodName") + "  " + food.getString("stock") + food.getString("unit") + "  " + food.getString("unitPrice") + "  " + food.getString("total") + "\n");
+        }
+
+        sb.append("--------------------------------" + "\n");
+        sb.append("备注：" + jsonObject.getString("remarks") + "\n");
+        sb.append("--------------------------------" + "\n\n\n\n\n\n\n\n");
+
+
 
         return sb.toString();
     }
@@ -104,33 +222,47 @@ public class PrintModule extends UniModule {
         return Result;
     }
 
+    public int getY(){
+        y = y + 35;
+        return  y;
+    }
+
     public String PrintBarTempalte(JSONObject json) {
+        y = 25;
 
         JSONArray foodList = json.getJSONArray("foodList");
 
-        String tagency = PrintBarText("时间：" + json.getString("informDate"), 65, 25) + "\n";
-        String tdate = PrintBarText("验收人：" + json.getString("acceptor"), 65, 60) + "\n";
-        String tbillNo = PrintBarText("采购人：" + json.getString("purchaser"), 65, 95) + "\n";
-        String tcdName = PrintBarText("保管人：" + json.getString("custodian"), 65, 130) + "\n";
-        String xuxian = PrintBarText("----------------------", 65, 165) + "\n";
-        String foodInfo = PrintBarText("食材    出库数量    单价    合计", 65, 200) + "\n";
-        String xuxian2 = PrintBarText("---------------------", 65, 235) + "\n";
+        String tagency = PrintBarText("时间：" + json.getString("informDate"), 10, y) + "\n";
+        String tdate = PrintBarText("验收人：" + json.getString("acceptor"), 10, getY()) + "\n";
+        String tbillNo = PrintBarText("采购人：" + json.getString("purchaser"), 10, getY()) + "\n";
+        String tcdName = PrintBarText("保管人：" + json.getString("custodian"), 10, getY()) + "\n";
+        String xuxian = PrintBarText("-----------------------------------", 10, getY()) + "\n";
+        String foodInfo = PrintBarText("食材    出库数量    单价    合计", 10, getY()) + "\n";
+        String xuxian2 = PrintBarText("-----------------------------------", 10, getY()) + "\n";
 
 
-        StringBuilder sb =new StringBuilder ();
+        String foodData = "";
 
         for (int i = 0; i < foodList.size(); i++) {
             JSONObject food = (JSONObject) foodList.get(i);
-            sb.append(food.getString("foodName") + "  ");
-            sb.append(food.getString("stock") + food.getString("unit") + "  ");
-            sb.append(food.getString("unitPrice") + "  ");
-            sb.append(food.getString("total") + "\n");
+
+
+            StringBuilder sb1 =new StringBuilder ();
+
+            sb1.append(food.getString("foodName") + "  ");
+            sb1.append(food.getString("stock") + food.getString("unit") + "  ");
+            sb1.append(food.getString("unitPrice") + "  ");
+            sb1.append(food.getString("total"));
+
+            String ss = PrintBarText(sb1.toString(), 10, getY()) + "\n";
+
+            foodData = foodData + ss;
+
         }
 
-        String foodData = PrintBarText(sb.toString(), 65, 270) + "\n";
-        String xuxian3 = PrintBarText("-------------------", 65, 305) + "\n";
-        String remarks = PrintBarText("备注：" + json.getString("remarks"), 65, 340) + "\n\n\n";
-        String xuxian4 = PrintBarText("-------------------", 65, 375) + "\n";
+        String xuxian3 = PrintBarText("-----------------------------------", 10, getY()) + "\n";
+        String remarks = PrintBarText("备注：" + json.getString("remarks"), 10, getY()) + "\n";
+        String xuxian4 = PrintBarText("-----------------------------------", 10, getY()) + "\n";
 
 
 //        String tTerOId = PrintBarText("终端编号：" + terOId, 65, 165) + "\n";

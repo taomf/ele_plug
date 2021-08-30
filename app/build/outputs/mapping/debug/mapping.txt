@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 2.1.75
 # min_api: 22
-# pg_map_id: 1c13d66
+# pg_map_id: e55a28b
 # common_typos_disable
 XI.CA.XI.K0 -> XI.CA.XI.K0:
     1:4:boolean K0() -> K0
@@ -36605,17 +36605,37 @@ com.ygzy.eles.camera.view.MaskView -> com.ygzy.eles.camera.view.MaskView:
     68:70:com.ygzy.eles.camera.view.MaskView setcRectHeight(int) -> setcRectHeight
     54:56:com.ygzy.eles.camera.view.MaskView setcRectWidth(int) -> setcRectWidth
 com.ygzy.eles.print.PrintModule -> com.ygzy.eles.print.PrintModule:
-    27:30:void <init>() -> <init>
-    158:160:java.lang.String Print2BarCode(java.lang.String,int,int) -> Print2BarCode
-    151:152:java.lang.String PrintBarCode(java.lang.String,int,int) -> PrintBarCode
-    109:141:java.lang.String PrintBarTempalte(com.alibaba.fastjson.JSONObject) -> PrintBarTempalte
-    146:147:java.lang.String PrintBarText(java.lang.String,int,int) -> PrintBarText
-    94:104:java.lang.String getFromAssets(java.lang.String) -> getFromAssets
-    185:188:android_serialport_api.SerialPort getSerialPortPrint(java.lang.String,int) -> getSerialPortPrint
-    166:181:void initLabelPrint() -> initLabelPrint
-    83:89:java.lang.String print22Code(com.alibaba.fastjson.JSONObject) -> print22Code
-    59:78:java.lang.String printInformInfo(com.alibaba.fastjson.JSONObject) -> printInformInfo
-    37:47:void printInsert(com.alibaba.fastjson.JSONObject,io.dcloud.feature.uniapp.bridge.UniJSCallback) -> printInsert
+    28:38:void <init>() -> <init>
+    290:292:java.lang.String Print2BarCode(java.lang.String,int,int) -> Print2BarCode
+    283:284:java.lang.String PrintBarCode(java.lang.String,int,int) -> PrintBarCode
+    231:273:java.lang.String PrintBarTempalte(com.alibaba.fastjson.JSONObject) -> PrintBarTempalte
+    278:279:java.lang.String PrintBarText(java.lang.String,int,int) -> PrintBarText
+    212:222:java.lang.String getFromAssets(java.lang.String) -> getFromAssets
+    317:320:android_serialport_api.SerialPort getSerialPortPrint(java.lang.String,int) -> getSerialPortPrint
+    226:227:int getY() -> getY
+    298:313:void initLabelPrint() -> initLabelPrint
+    201:207:java.lang.String print22Code(com.alibaba.fastjson.JSONObject) -> print22Code
+    115:150:java.lang.String printInformInfo(com.alibaba.fastjson.JSONObject) -> printInformInfo
+    43:61:void printInsert(com.alibaba.fastjson.JSONObject,io.dcloud.feature.uniapp.bridge.UniJSCallback) -> printInsert
+    67:84:void printInsertOrgName(com.alibaba.fastjson.JSONObject,java.lang.String) -> printInsertOrgName
+    88:103:void printOut(com.alibaba.fastjson.JSONObject,io.dcloud.feature.uniapp.bridge.UniJSCallback) -> printOut
+    162:196:java.lang.String printOutInfo(com.alibaba.fastjson.JSONObject) -> printOutInfo
+com.ygzy.eles.print.PrinterCMD -> com.ygzy.eles.print.PrinterCMD:
+    3:3:void <init>() -> <init>
+    29:29:java.lang.String CMD_Bold(int) -> CMD_Bold
+    189:189:java.lang.String CMD_CutPage() -> CMD_CutPage
+    19:19:java.lang.String CMD_Enter() -> CMD_Enter
+    48:110:java.lang.String CMD_FontSize(int) -> CMD_FontSize
+    120:140:java.lang.String CMD_FontSize_BTP_M280(int) -> CMD_FontSize_BTP_M280
+    150:170:java.lang.String CMD_FontSize_BTP_M2801(int) -> CMD_FontSize_BTP_M2801
+    180:180:java.lang.String CMD_PageGO(int) -> CMD_PageGO
+    238:238:java.lang.String CMD_ReturnStatus(int) -> CMD_ReturnStatus
+    10:10:java.lang.String CMD_SetPos() -> CMD_SetPos
+    39:39:java.lang.String CMD_TextAlign(int) -> CMD_TextAlign
+    249:249:java.lang.String CMD_TiaoMaHeight(int) -> CMD_TiaoMaHeight
+    281:281:java.lang.String CMD_TiaoMaPrint(java.lang.String) -> CMD_TiaoMaPrint
+    270:270:java.lang.String CMD_TiaoMaWeiZi(int) -> CMD_TiaoMaWeiZi
+    260:260:java.lang.String CMD_TiaoMaWidth(int) -> CMD_TiaoMaWidth
 com.ygzy.eles.print.SerialPortManager -> com.ygzy.eles.print.SerialPortManager:
     6:6:void <init>() -> <init>
     44:51:boolean rtnIsCloseBar() -> rtnIsCloseBar
