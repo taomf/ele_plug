@@ -132,17 +132,24 @@ public class PrintModule extends UniModule {
         sb.append("供应商:" + supplierName + "\n");
 
         sb.append("--------------------------------" + "\n");
-        sb.append("食材    入库数量    单价    合计" + "\n");
-        sb.append("--------------------------------" + "\n");
+//        sb.append("食材    入库数量    单价    合计" + "\n");
+//        sb.append("--------------------------------" + "\n");
 
         JSONArray foodList = jsonObject.getJSONArray("foodList");
-
+        double d = 0d;
         for (int i = 0; i < foodList.size(); i++) {
             JSONObject food = (JSONObject) foodList.get(i);
-            sb.append(food.getString("foodName") + "  " + food.getString("stock") + food.getString("unit") + "  " + food.getString("unitPrice") + "  " + food.getString("total") + "\n");
+
+//            sb.append(food.getString("foodName") + "  " + food.getString("stock") + food.getString("unit") + "  " + food.getString("unitPrice") + "  " + food.getString("total") + "\n");
+            sb.append(food.getString("foodName") + "\n");
+            sb.append("数量：" + food.getString("stock") + food.getString("unit") + "  " +  "单价：" +food.getString("unitPrice") + "元\n");
+            sb.append("小计：" + food.getString("total") + "元\n");
+
+            d = d + (Double.parseDouble(food.getString("total")) * 1000);
         }
 
         sb.append("--------------------------------" + "\n");
+        sb.append("合计：" + (d / 1000) + "元\n");
         sb.append("备注：" + jsonObject.getString("remarks") + "\n");
         sb.append("--------------------------------" + "\n\n\n\n\n\n\n\n");
 
@@ -177,17 +184,24 @@ public class PrintModule extends UniModule {
 
 
         sb.append("--------------------------------" + "\n");
-        sb.append("食材    出库数量    单价    合计" + "\n");
-        sb.append("--------------------------------" + "\n");
+//        sb.append("食材    出库数量    单价    合计" + "\n");
+//        sb.append("--------------------------------" + "\n");
 
         JSONArray foodList = jsonObject.getJSONArray("foodList");
-
+        double d = 0d;
         for (int i = 0; i < foodList.size(); i++) {
             JSONObject food = (JSONObject) foodList.get(i);
-            sb.append(food.getString("foodName") + "  " + food.getString("stock") + food.getString("unit") + "  " + food.getString("unitPrice") + "  " + food.getString("total") + "\n");
+//            sb.append(food.getString("foodName") + "  " + food.getString("stock") + food.getString("unit") + "  " + food.getString("unitPrice") + "  " + food.getString("total") + "\n");
+
+            sb.append(food.getString("foodName") + "\n");
+            sb.append("数量：" + food.getString("stock") + food.getString("unit") + "  " +  "单价：" +food.getString("unitPrice") + "元\n");
+            sb.append("小计：" + food.getString("total") + "元\n");
+
+            d = d + (Double.parseDouble(food.getString("total")) * 1000);
         }
 
         sb.append("--------------------------------" + "\n");
+        sb.append("合计：" + (d / 1000) + "元\n");
         sb.append("备注：" + jsonObject.getString("remarks") + "\n");
         sb.append("--------------------------------" + "\n\n\n\n\n\n\n\n");
 
