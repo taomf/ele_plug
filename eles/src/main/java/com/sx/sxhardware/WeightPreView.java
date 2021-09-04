@@ -22,6 +22,7 @@ import io.dcloud.feature.uniapp.annotation.UniJSMethod;
 import io.dcloud.feature.uniapp.ui.action.AbsComponentData;
 import io.dcloud.feature.uniapp.ui.component.AbsVContainer;
 import io.dcloud.feature.uniapp.ui.component.UniComponent;
+import io.dcloud.feature.uniapp.ui.component.UniComponentProp;
 
 /**
  * author : taomf
@@ -51,7 +52,7 @@ public class WeightPreView extends UniComponent<TextView> {
     @Override
     protected TextView initComponentHostView(@NonNull Context context) {
         weight = new TextView(context);
-        weight.setTextSize(TypedValue.COMPLEX_UNIT_DIP,40);
+        weight.setTextSize(TypedValue.COMPLEX_UNIT_PX,87);
         try {
             // 实例化重量版
             weightdll = new WeightDLL();
@@ -67,6 +68,11 @@ public class WeightPreView extends UniComponent<TextView> {
         }
 
         return weight;
+    }
+
+    @UniComponentProp(name = "fontSize")
+    public void setTel(int textSize) {
+        getHostView().setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
     }
 
     private Handler handler = new Handler() {
