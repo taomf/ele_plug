@@ -48,7 +48,11 @@ public class CameraControlManager {
 	 * 开启摄像头
 	 */
 	public void doOpenCamera(){
-		mCamera= Camera.open();
+		try{
+			mCamera= Camera.open();
+		}catch (Exception e){
+			Log.e("taomf",e.toString());
+		}
 	}
 
 	/**

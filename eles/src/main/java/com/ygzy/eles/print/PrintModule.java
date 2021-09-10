@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.security.InvalidParameterException;
 
@@ -55,7 +56,48 @@ public class PrintModule extends UniModule {
             mOutputStreamPrint.write(outbytes);
 
             mOutputStreamPrint.write(printInfo.getBytes("GB2312"));
+
+            if(json.containsKey("informType") && (json.getInteger("informType") == 1 || json.getString("informType") == "1") ) {
+                printOutInfo(json);
+            }
+
         } catch (Exception e) {
+            Log.e("taomf",e.toString());
+        }
+
+    }
+
+    @UniJSMethod(uiThread = false)
+    public void printInsertLable(JSONObject json, UniJSCallback callback){
+        initLabelPrint();
+        try {
+
+            JSONArray foodList = json.getJSONArray("foodList");
+            for (int i = 0; i < foodList.size(); i++) {
+                String print = print22Code(json,(JSONObject)foodList.get(i));
+                Log.i("taomf2",print);
+                mOutputStreamPrint.write(print.getBytes("GB2312"));
+            }
+        } catch (Exception e) {
+            Log.e("taomf",e.toString());
+        }
+
+    }
+    @UniJSMethod(uiThread = false)
+    public void printDetailLable(JSONObject json, UniJSCallback callback){
+        initLabelPrint();
+        try {
+
+            JSONArray foodList = json.getJSONArray("foodList");
+            for (int i = 0; i < foodList.size(); i++) {
+
+                String print = String.format(getFromAssets("print.txt"), PrintBarTempalteDetail(json,(JSONObject)foodList.get(i)), 1);
+
+                Log.i("taomf2",print);
+                mOutputStreamPrint.write(print.getBytes("GB2312"));
+            }
+        } catch (Exception e) {
+            Log.e("taomf",e.toString());
         }
 
     }
@@ -136,20 +178,18 @@ public class PrintModule extends UniModule {
 //        sb.append("--------------------------------" + "\n");
 
         JSONArray foodList = jsonObject.getJSONArray("foodList");
-        double d = 0d;
         for (int i = 0; i < foodList.size(); i++) {
             JSONObject food = (JSONObject) foodList.get(i);
 
 //            sb.append(food.getString("foodName") + "  " + food.getString("stock") + food.getString("unit") + "  " + food.getString("unitPrice") + "  " + food.getString("total") + "\n");
             sb.append(food.getString("foodName") + "\n");
-            sb.append("数量：" + food.getString("stock") + food.getString("unit") + "  " +  "单价：" +food.getString("unitPrice") + "元\n");
-            sb.append("小计：" + food.getString("total") + "元\n");
+            sb.append("数量：" + food.getString("stock") + food.getString("unit") + "  " +  "单价：" + String.format("%.2f", Double.parseDouble(food.getString("unitPrice")))  + "元\n");
+            sb.append("小计：" + String.format("%.2f", Double.parseDouble(food.getString("total"))) + "元\n");
 
-            d = d + (Double.parseDouble(food.getString("total")) * 1000);
         }
 
         sb.append("--------------------------------" + "\n");
-        sb.append("合计：" + (d / 1000) + "元\n");
+        sb.append("合计：" +  String.format("%.2f", Double.parseDouble(jsonObject.getString("totalPrice"))) + "元\n");
         sb.append("备注：" + jsonObject.getString("remarks") + "\n");
         sb.append("--------------------------------" + "\n\n\n\n\n\n\n\n");
 
@@ -168,7 +208,7 @@ public class PrintModule extends UniModule {
     public static  String printOutInfo(JSONObject jsonObject){
         StringBuilder sb=new StringBuilder ();
 
-        String deliveryTime = jsonObject.getString("deliveryTime");
+        String deliveryTime = jsonObject.getString("informDate");
         String deliveryUser = jsonObject.getString("deliveryUser");
         String receiver = jsonObject.getString("receiver");
         String reason = jsonObject.getString("reason");
@@ -188,20 +228,18 @@ public class PrintModule extends UniModule {
 //        sb.append("--------------------------------" + "\n");
 
         JSONArray foodList = jsonObject.getJSONArray("foodList");
-        double d = 0d;
         for (int i = 0; i < foodList.size(); i++) {
             JSONObject food = (JSONObject) foodList.get(i);
 //            sb.append(food.getString("foodName") + "  " + food.getString("stock") + food.getString("unit") + "  " + food.getString("unitPrice") + "  " + food.getString("total") + "\n");
 
             sb.append(food.getString("foodName") + "\n");
-            sb.append("数量：" + food.getString("stock") + food.getString("unit") + "  " +  "单价：" +food.getString("unitPrice") + "元\n");
-            sb.append("小计：" + food.getString("total") + "元\n");
+            sb.append("数量：" + food.getString("stock") + food.getString("unit") + "  " +  "单价：" + String.format("%.2f", Double.parseDouble(food.getString("unitPrice"))) + "元\n");
+            sb.append("小计：" + String.format("%.2f", Double.parseDouble(food.getString("total")))  + "元\n");
 
-            d = d + (Double.parseDouble(food.getString("total")) * 1000);
         }
 
         sb.append("--------------------------------" + "\n");
-        sb.append("合计：" + (d / 1000) + "元\n");
+        sb.append("合计：" +String.format("%.2f", Double.parseDouble(jsonObject.getString("totalPrice"))) + "元\n");
         sb.append("备注：" + jsonObject.getString("remarks") + "\n");
         sb.append("--------------------------------" + "\n\n\n\n\n\n\n\n");
 
@@ -215,6 +253,18 @@ public class PrintModule extends UniModule {
             String tmp = getFromAssets("print.txt");
             // String str=String.format(tmp,printBar2Code("abc"));
             String str = String.format(tmp, PrintBarTempalte(jsonObject), 1);
+            return str;
+        } catch (Exception e) {
+            // TODO: handle exception
+            return "";
+        }
+    }
+
+    public String print22Code(JSONObject jsonObject,JSONObject food) {
+        try {
+            String tmp = getFromAssets("print.txt");
+            // String str=String.format(tmp,printBar2Code("abc"));
+            String str = String.format(tmp, PrintBarTempalte(jsonObject,food), 1);
             return str;
         } catch (Exception e) {
             // TODO: handle exception
@@ -239,6 +289,38 @@ public class PrintModule extends UniModule {
     public int getY(){
         y = y + 35;
         return  y;
+    }
+
+    public String PrintBarTempalte(JSONObject json,JSONObject food) {
+        y = 25;
+
+        String title = PrintBarText("食材标签", 165, y) + "\n";
+
+        String informDate = PrintBarText(json.getString("informDate"), 35, getY()) + "\n";
+        String batchNo = PrintBarText("批次编号：" + food.getString("batchNo"), 35, getY()) + "\n";
+        String foodName = PrintBarText(food.getString("foodName"), 35 , getY()) + "\n";
+        String stock = PrintBarText("数量：" + food.getString("stock"), 35, getY()) + "\n";
+        String unitPrice = PrintBarText("单价：" + food.getString("unitPrice"), 200, getY() - 35) + "\n";
+        String xcode = PrintBarCode(food.getString("batchNo"), 35, getY() - 35) + "\n";
+
+        return title + informDate + batchNo + foodName + stock + unitPrice + xcode;
+
+    }
+
+    public String PrintBarTempalteDetail(JSONObject json,JSONObject food) {
+        y = 25;
+
+        String title = PrintBarText("食材标签", 165, y) + "\n";
+
+        String informDate = PrintBarText(json.getString("informDate"), 35, getY()) + "\n";
+        String batchNo = PrintBarText("批次编号：" + food.getString("batchNo"), 35, getY()) + "\n";
+        String foodName = PrintBarText(food.getString("foodName"), 35 , getY()) + "\n";
+        String stock = PrintBarText("数量：" + food.getString("amount"), 35, getY()) + "\n";
+        String unitPrice = PrintBarText("单价：" + food.getString("unitPrice"), 200, getY() - 35) + "\n";
+        String xcode = PrintBarCode(food.getString("batchNo"), 35, getY() - 35) + "\n";
+
+        return title + informDate + batchNo + foodName + stock + unitPrice + xcode;
+
     }
 
     public String PrintBarTempalte(JSONObject json) {

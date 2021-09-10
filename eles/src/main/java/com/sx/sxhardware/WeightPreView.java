@@ -40,6 +40,8 @@ public class WeightPreView extends UniComponent<TextView> {
 
     public static String weighted = "0";
 
+    public static int isWeighing = 1;
+
     private WeightDLL weightdll;
 
     TextView weight;
@@ -75,6 +77,15 @@ public class WeightPreView extends UniComponent<TextView> {
         getHostView().setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
     }
 
+
+    /**
+     * @param isWeighing 是否是称重物品
+     */
+    @UniComponentProp(name = "isWeighing")
+    public void setIsWeighing(int isWeighing) {
+        this.isWeighing = isWeighing;
+    }
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -98,7 +109,11 @@ public class WeightPreView extends UniComponent<TextView> {
                             BigDecimal b1 = new BigDecimal(finalWeightValue);
                             BigDecimal b2 = new BigDecimal(tareWei);
                             weighted = (b1.subtract(b2).doubleValue()) + "";
-                            weight.setText("重量：" +  weighted + " kg");
+                            if(isWeighing == 1){
+                                weight.setText("重量：" +  weighted + " kg");
+                            }else {
+                                weight.setText("----");
+                            }
                         }
                     });
                     break;
