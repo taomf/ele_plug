@@ -1,9 +1,9 @@
-SIZE 60 mm ,80 mm
+SIZE 58 mm ,60 mm
 GAP 3 mm,0 mm
 DENSITY 15
 SPEED 3
 SOUND leve1,interval
-DIRECTION 0
+DIRECTION 1
 REFERENCE 0,0
 CLS
 %1$s

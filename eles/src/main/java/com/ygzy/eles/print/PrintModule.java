@@ -39,6 +39,11 @@ public class PrintModule extends UniModule {
     public int y = 25;
 
 
+    /**
+     * 小票打印
+     * @param json
+     * @param callback
+     */
     @UniJSMethod(uiThread = false)
     public void printInsert(JSONObject json, UniJSCallback callback){
         initLabelPrint();
@@ -67,6 +72,11 @@ public class PrintModule extends UniModule {
 
     }
 
+    /**
+     * 标签打印
+     * @param json
+     * @param callback
+     */
     @UniJSMethod(uiThread = false)
     public void printInsertLable(JSONObject json, UniJSCallback callback){
         initLabelPrint();
@@ -83,6 +93,12 @@ public class PrintModule extends UniModule {
         }
 
     }
+
+    /**
+     * 历史明细标签打印
+     * @param json
+     * @param callback
+     */
     @UniJSMethod(uiThread = false)
     public void printDetailLable(JSONObject json, UniJSCallback callback){
         initLabelPrint();
