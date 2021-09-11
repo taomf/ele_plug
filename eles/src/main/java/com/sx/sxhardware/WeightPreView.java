@@ -3,6 +3,7 @@ package com.sx.sxhardware;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -77,6 +78,16 @@ public class WeightPreView extends UniComponent<TextView> {
         getHostView().setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
     }
 
+    @UniComponentProp(name = "textColor")
+    public void setTextColor(String color) {
+        try{
+            getHostView().setTextColor(Color.parseColor(color));
+
+        }catch (Exception e){
+
+        }
+    }
+
 
     /**
      * @param isWeighing 是否是称重物品
@@ -110,7 +121,7 @@ public class WeightPreView extends UniComponent<TextView> {
                             BigDecimal b2 = new BigDecimal(tareWei);
                             weighted = (b1.subtract(b2).doubleValue()) + "";
                             if(isWeighing == 1){
-                                weight.setText("重量：" +  weighted + " kg");
+                                weight.setText(weighted);
                             }else {
                                 weight.setText("----");
                             }
