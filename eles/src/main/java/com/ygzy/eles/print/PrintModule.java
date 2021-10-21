@@ -314,7 +314,7 @@ public class PrintModule extends UniModule {
 
         String informDate = PrintBarText(json.getString("informDate"), 35, getY()) + "\n";
         String batchNo = PrintBarText("批次编号：" + food.getString("batchNo"), 35, getY()) + "\n";
-        String foodName = PrintBarText(food.getString("foodName"), 35 , getY()) + "\n";
+        String foodName = PrintBarText("名称：" + food.getString("foodName"), 35 , getY()) + "\n";
         String stock = PrintBarText("数量：" + food.getString("stock"), 35, getY()) + "\n";
         String unitPrice = PrintBarText("单价：" + food.getString("unitPrice"), 200, getY() - 35) + "\n";
         String xcode = PrintBarCode(food.getString("batchNo"), 35, getY() - 35) + "\n";
@@ -330,7 +330,7 @@ public class PrintModule extends UniModule {
 
         String informDate = PrintBarText(json.getString("informDate"), 35, getY()) + "\n";
         String batchNo = PrintBarText("批次编号：" + food.getString("batchNo"), 35, getY()) + "\n";
-        String foodName = PrintBarText(food.getString("foodName"), 35 , getY()) + "\n";
+        String foodName = PrintBarText("名称：" + food.getString("foodName"), 35 , getY()) + "\n";
         String stock = PrintBarText("数量：" + food.getString("amount"), 35, getY()) + "\n";
         String unitPrice = PrintBarText("单价：" + food.getString("unitPrice"), 200, getY() - 35) + "\n";
         String xcode = PrintBarCode(food.getString("batchNo"), 35, getY() - 35) + "\n";
