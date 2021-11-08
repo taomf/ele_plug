@@ -6,6 +6,9 @@ import android.util.Log;
 
 import com.sx.sxhardware.WeightPreView;
 import com.ygzy.eles.camera.control.CameraControlManager;
+import com.ygzy.eles.camera.utils.Base64Util;
+import com.ygzy.eles.camera.utils.FileUtil;
+import com.ygzy.eles.camera.utils.FileUtils;
 import com.ygzy.eles.camera.view.FacadeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -13,6 +16,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,11 +69,21 @@ public class CameraPreView extends UniComponent<FacadeView> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSaveFilePath(String path) {
+        String imgStr = "";
+        try {
+            byte[] imgData  = FileUtils.readFileByBytes(path);
+            imgStr = Base64Util.encode(imgData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         Log.i("szm--", path);
         Map<String, Object> params = new HashMap<>();
         Map<String, Object> number = new HashMap<>();
         number.put("path", path);
         number.put("weight", WeightPreView.weighted);
+        number.put("imgStr", imgStr);
         //目前uni限制 参数需要放入到"detail"中 否则会被清理
         params.put("detail", number);
         fireEvent("onTel", params);
