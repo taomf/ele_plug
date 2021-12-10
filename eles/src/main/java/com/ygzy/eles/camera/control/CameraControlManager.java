@@ -10,6 +10,7 @@ import android.view.SurfaceHolder;
 
 
 import com.ygzy.eles.camera.utils.FileUtil;
+import com.ygzy.eles.camera.utils.LogUtils;
 
 import java.io.IOException;
 
@@ -49,9 +50,9 @@ public class CameraControlManager {
 	 */
 	public void doOpenCamera(){
 		try{
-			mCamera= Camera.open();
+			mCamera= Camera.open(Camera.getNumberOfCameras() - 1);
 		}catch (Exception e){
-			Log.e("taomf",e.toString());
+			LogUtils.e("taomf",e.toString());
 		}
 	}
 
