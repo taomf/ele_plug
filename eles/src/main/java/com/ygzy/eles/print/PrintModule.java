@@ -1,6 +1,19 @@
 package com.ygzy.eles.print;
 
+import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.ActionMode;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.SearchEvent;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -12,9 +25,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.security.InvalidParameterException;
+import java.util.HashMap;
+import java.util.Map;
 
 import android_serialport_api.SerialPort;
 import io.dcloud.feature.uniapp.annotation.UniJSMethod;
@@ -430,5 +444,141 @@ public class PrintModule extends UniModule {
             mSerialPortPrint = new SerialPort(new File(file), weightPort, 0);
         }
         return mSerialPortPrint;
+    }
+    @UniJSMethod(uiThread = false)
+    public void addKeyDownListener(final UniJSCallback callback){
+        Activity activity = (Activity) mWXSDKInstance.getContext();
+        Window window = activity.getWindow();
+        window.setCallback(new Window.Callback() {
+            @Override
+            public boolean dispatchKeyEvent(final KeyEvent event) {
+                if(event.getAction() == KeyEvent.ACTION_DOWN){
+
+                    Map<String,Object> params=new HashMap<>();
+                    params.put("keyCode",event.getKeyCode());
+                    mUniSDKInstance.fireGlobalEventCallback("keyCodeEvent", params);
+
+                    callback.invokeAndKeepAlive(new JSONObject(){{
+                        put("keyCode",event.getKeyCode());
+                    }});
+
+                }
+
+                return false;
+            }
+
+            @Override
+            public boolean dispatchKeyShortcutEvent(KeyEvent event) {
+                return false;
+            }
+
+            @Override
+            public boolean dispatchTouchEvent(MotionEvent event) {
+                return false;
+            }
+
+            @Override
+            public boolean dispatchTrackballEvent(MotionEvent event) {
+                return false;
+            }
+
+            @Override
+            public boolean dispatchGenericMotionEvent(MotionEvent event) {
+                return false;
+            }
+
+            @Override
+            public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
+                return false;
+            }
+
+            @Nullable
+            @Override
+            public View onCreatePanelView(int featureId) {
+                return null;
+            }
+
+            @Override
+            public boolean onCreatePanelMenu(int featureId, @NonNull Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onPreparePanel(int featureId, @Nullable View view, @NonNull Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onMenuOpened(int featureId, @NonNull Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onMenuItemSelected(int featureId, @NonNull MenuItem item) {
+                return false;
+            }
+
+            @Override
+            public void onWindowAttributesChanged(WindowManager.LayoutParams attrs) {
+
+            }
+
+            @Override
+            public void onContentChanged() {
+
+            }
+
+            @Override
+            public void onWindowFocusChanged(boolean hasFocus) {
+
+            }
+
+            @Override
+            public void onAttachedToWindow() {
+
+            }
+
+            @Override
+            public void onDetachedFromWindow() {
+
+            }
+
+            @Override
+            public void onPanelClosed(int featureId, @NonNull Menu menu) {
+
+            }
+
+            @Override
+            public boolean onSearchRequested() {
+                return false;
+            }
+
+            @Override
+            public boolean onSearchRequested(SearchEvent searchEvent) {
+                return false;
+            }
+
+            @Nullable
+            @Override
+            public ActionMode onWindowStartingActionMode(ActionMode.Callback callback) {
+                return null;
+            }
+
+            @Nullable
+            @Override
+            public ActionMode onWindowStartingActionMode(ActionMode.Callback callback, int type) {
+                return null;
+            }
+
+            @Override
+            public void onActionModeStarted(ActionMode mode) {
+
+            }
+
+            @Override
+            public void onActionModeFinished(ActionMode mode) {
+
+            }
+        });
     }
 }
