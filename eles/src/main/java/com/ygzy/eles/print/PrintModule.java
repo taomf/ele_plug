@@ -448,7 +448,7 @@ public class PrintModule extends UniModule {
     @UniJSMethod(uiThread = false)
     public void addKeyDownListener(final UniJSCallback callback){
         Activity activity = (Activity) mWXSDKInstance.getContext();
-        Window window = activity.getWindow();
+        final Window window = activity.getWindow();
         window.setCallback(new Window.Callback() {
             @Override
             public boolean dispatchKeyEvent(final KeyEvent event) {
@@ -463,7 +463,6 @@ public class PrintModule extends UniModule {
                     }});
 
                 }
-
                 return false;
             }
 
@@ -474,6 +473,9 @@ public class PrintModule extends UniModule {
 
             @Override
             public boolean dispatchTouchEvent(MotionEvent event) {
+                if (window.superDispatchTouchEvent(event)) {
+                    return true;
+                }
                 return false;
             }
 
