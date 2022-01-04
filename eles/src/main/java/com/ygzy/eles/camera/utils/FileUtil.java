@@ -37,8 +37,7 @@ public class FileUtil {
 	public static void saveBitmap(Bitmap b){
 
 		String path = initPath();
-		long dataTake = System.currentTimeMillis();
-		String jpegName = path + "/" + dataTake +".jpg";
+		String jpegName = path + "/" + DateUtils.getNowTimeSend() +".jpg";
 		Log.i(TAG, "saveBitmap:jpegName = " + jpegName);
 		try {
 			FileOutputStream fout = new FileOutputStream(jpegName);

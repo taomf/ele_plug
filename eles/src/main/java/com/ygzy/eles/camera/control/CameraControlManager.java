@@ -159,11 +159,24 @@ public class CameraControlManager {
 			//保存图片到sdcard
 			if(null != b)
 			{
-				FileUtil.saveBitmap(b);
+//				Bitmap rectBitmap = Bitmap.createBitmap(b, 160, 340,  500, 600 );
+				Bitmap rectBitmap = Bitmap.createBitmap(b, 0, 140,  700, 1000 );
+
+				FileUtil.saveBitmap(rectBitmap);
+
+				if(!rectBitmap.isRecycled()){
+					rectBitmap.recycle();
+					rectBitmap = null;
+				}
 			}
 			//再次进入预览
 			mCamera.startPreview();
 			isPreviewing = true;
+
+			if(!b.isRecycled()){
+				b.recycle();
+				b = null;
+			}
 		}
 	};
 

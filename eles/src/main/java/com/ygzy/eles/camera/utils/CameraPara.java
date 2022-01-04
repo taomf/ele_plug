@@ -47,6 +47,7 @@ public class CameraPara {
 //		setPictureSizes();
 //		setPreviewSizes();
 		setFocusModes();
+		parameters.setZoom(16);
 		parameters.setRotation(90);
 	}
 
