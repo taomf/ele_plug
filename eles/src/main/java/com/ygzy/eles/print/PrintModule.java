@@ -463,6 +463,11 @@ public class PrintModule extends UniModule {
                     }});
 
                 }
+                if (window.superDispatchKeyEvent(event)) {
+                    return true;
+                }
+
+
                 return false;
             }
 
