@@ -160,14 +160,14 @@ public class CameraControlManager {
 			if(null != b)
 			{
 //				Bitmap rectBitmap = Bitmap.createBitmap(b, 160, 340,  500, 600 );
-				Bitmap rectBitmap = Bitmap.createBitmap(b, 0, 140,  700, 1000 );
+//				Bitmap rectBitmap = Bitmap.createBitmap(b, 0, 140,  700, 1000 );
 
-				FileUtil.saveBitmap(rectBitmap);
+				FileUtil.saveBitmap(b);
 
-				if(!rectBitmap.isRecycled()){
-					rectBitmap.recycle();
-					rectBitmap = null;
-				}
+//				if(!rectBitmap.isRecycled()){
+//					rectBitmap.recycle();
+//					rectBitmap = null;
+//				}
 			}
 			//再次进入预览
 			mCamera.startPreview();
