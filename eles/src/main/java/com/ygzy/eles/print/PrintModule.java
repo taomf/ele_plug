@@ -454,6 +454,8 @@ public class PrintModule extends UniModule {
             public boolean dispatchKeyEvent(final KeyEvent event) {
                 if(event.getAction() == KeyEvent.ACTION_DOWN){
 
+                    Log.d("keyCode", "" + event.getKeyCode());
+
                     Map<String,Object> params=new HashMap<>();
                     params.put("keyCode",event.getKeyCode());
                     mUniSDKInstance.fireGlobalEventCallback("keyCodeEvent", params);
@@ -461,6 +463,11 @@ public class PrintModule extends UniModule {
                     callback.invokeAndKeepAlive(new JSONObject(){{
                         put("keyCode",event.getKeyCode());
                     }});
+
+                    if (event.getKeyCode() == 136){
+                        dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+                    }
+
 
                 }
                 if (window.superDispatchKeyEvent(event)) {

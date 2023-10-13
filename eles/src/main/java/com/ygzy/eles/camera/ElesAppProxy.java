@@ -16,7 +16,7 @@ public class ElesAppProxy implements UniAppHookProxy {
     public static String PRINTCOM="1";
     public static String PRINTTXTCOM="4";
     public static String PRINTCARD="2";
-    public static int printPort =9600;//打印机波特率9600 115200
+    public static int printPort =115200;//打印机波特率  旧9600  新115200
 
     @Override
     public void onCreate(Application application) {
